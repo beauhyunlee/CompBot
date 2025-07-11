@@ -1,0 +1,7 @@
+# ignore compiled binary
+main
+# ignore generated data file
+path.csv
+# python cache
+__pychace__/
+*.pyc
