@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <cmath>
 using namespace std;
 
 
@@ -18,37 +19,37 @@ Robot::Robot(){
 
 void Robot::move(){
     isMoving = true;
-    cout << "CompBot started moving!" << endl;
-    float rad = angle * (3.14 / 180.0);
+    cout << "CompBot has started moving..." << endl;
+    float rad = angle * (M_PI / 180.0f);
     vx = speed * cos(rad);
     vy = speed * sin(rad);
 }
 void Robot::stop(){
     isMoving = false;
-    cout << "CompBot stopped moving!" << endl;
+    cout << "CompBot has stopped moving..." << endl;
 }
 void Robot::turn(float degrees){
     angle += degrees;
+    
+    // [0, 360]
     if (angle >= 360) angle -= 360; 
     if (angle < 0) angle += 360;
     cout << "CompBot turned to " << angle << " degrees." << endl;
-
+    // rotate other direction take the transpose
+    
     if (isMoving){
-       float rad = angle * (3.14 / 180.0);
+       float rad = angle * (M_PI / 180.0f);
         vx = speed * cos(rad);
         vy = speed * sin(rad);
     }
 }
 void Robot::update(){
-    if (isMoving){
-        x += vx;
-        y += vy;
-        
-        std::ofstream log("path.csv", std::ios::app);
-        if(log.is_open()){
-            log << x << "," << y << "\n";
-        }
-        log.close();
+    if(!isMoving) return;
+    x += vx;
+    y += vy;
+    ofstream log("data/path.csv", ios::app);
+    if(log.is_open()){
+        log << x << "," << y << "\n";
     }
 }
 void Robot::printState(){

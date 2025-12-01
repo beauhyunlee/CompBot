@@ -1,7 +1,16 @@
-# ignore compiled binary
-main
-# ignore generated data file
-path.csv
-# python cache
-__pychace__/
+# Build artifacts
+compbot
+*.o
+
+# Python cache
+__pycache__/
 *.pyc
+
+# Data generated at runtime
+data/path.csv
+
+# macOS garbage
+.DS_Store
+
+# Conda env (never commit)
+env/
